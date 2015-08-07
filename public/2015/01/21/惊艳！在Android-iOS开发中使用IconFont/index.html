@@ -1,0 +1,694 @@
+<!doctype html>
+<html class="theme-next use-motion ">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.1"/>
+
+
+    <meta name="description" content="胡乱折腾" />
+
+
+
+  <meta name="keywords" content="Android,iOS," />
+
+
+
+  <link rel="alternate" href="/atom.xml" title="DEJAVU'S NOTES" type="application/atom+xml" />
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
+
+
+<meta name="description" content="引言本人是图标控、应用控。图标好看的、应用设计漂亮的，即使不用我也不会卸载它，给它在我的机机上留上一席之地，偶尔打开过过瘾。之前使用过一款叫做Radium的iOS APP，是一款收音机应用，给我留下了十足深刻的印象，不为别的，就是因为设计的非常漂亮，以致我现在也在Mac平台上继续使用它。多说无用，先给大家看看几张截图：
+
+这三张图都是同一个界面，列表背景色是专辑封面的主色，列表标题色是专辑封面第二">
+<meta property="og:type" content="article">
+<meta property="og:title" content="惊艳！在Android/iOS开发中使用IconFont">
+<meta property="og:url" content="http://yiqivr.com/2015/01/21/惊艳！在Android-iOS开发中使用IconFont/index.html">
+<meta property="og:site_name" content="DEJAVU'S NOTES">
+<meta property="og:description" content="引言本人是图标控、应用控。图标好看的、应用设计漂亮的，即使不用我也不会卸载它，给它在我的机机上留上一席之地，偶尔打开过过瘾。之前使用过一款叫做Radium的iOS APP，是一款收音机应用，给我留下了十足深刻的印象，不为别的，就是因为设计的非常漂亮，以致我现在也在Mac平台上继续使用它。多说无用，先给大家看看几张截图：
+
+这三张图都是同一个界面，列表背景色是专辑封面的主色，列表标题色是专辑封面第二">
+<meta property="og:image" content="http://pic.yupoo.com/lvning10086/EQTTjHv3/FAyy5.jpg">
+<meta property="og:updated_time" content="2015-08-04T15:14:40.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="惊艳！在Android/iOS开发中使用IconFont">
+<meta name="twitter:description" content="引言本人是图标控、应用控。图标好看的、应用设计漂亮的，即使不用我也不会卸载它，给它在我的机机上留上一席之地，偶尔打开过过瘾。之前使用过一款叫做Radium的iOS APP，是一款收音机应用，给我留下了十足深刻的印象，不为别的，就是因为设计的非常漂亮，以致我现在也在Mac平台上继续使用它。多说无用，先给大家看看几张截图：
+
+这三张图都是同一个界面，列表背景色是专辑封面的主色，列表标题色是专辑封面第二">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    sidebar: 'post'
+  };
+</script>
+
+  <title> 惊艳！在Android/iOS开发中使用IconFont | DEJAVU'S NOTES </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand" rel="start">
+      <span class="logo">
+        <i class="icon-next-logo"></i>
+      </span>
+      <span class="site-title">DEJAVU'S NOTES</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon icon-next-home"></i> <br />
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            <i class="menu-item-icon icon-next-archives"></i> <br />
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            <i class="menu-item-icon icon-next-tags"></i> <br />
+            标签
+          </a>
+        </li>
+      
+
+      
+      
+        <li class="menu-item menu-item-search">
+          <a href="#" class="st-search-show-outputs">
+            <i class="menu-item-icon icon-next-search"></i> <br />
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'h2SpMJfbsZVPpKyipK2s','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content"> 
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              惊艳！在Android/iOS开发中使用IconFont
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-01-21T03:19:52+08:00" content="2015-01-21">
+            2015-01-21
+          </time>
+        </span>
+
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><h3 id="引言">引言</h3><p>本人是图标控、应用控。图标好看的、应用设计漂亮的，即使不用我也不会卸载它，给它在我的机机上留上一席之地，偶尔打开过过瘾。之前使用过一款叫做Radium的iOS APP，是一款收音机应用，给我留下了十足深刻的印象，不为别的，就是因为设计的非常漂亮，以致我现在也在Mac平台上继续使用它。多说无用，先给大家看看几张截图：</p>
+<p><img src="http://pic.yupoo.com/lvning10086/EQTTjHv3/FAyy5.jpg" alt=""></p>
+<p>这三张图都是同一个界面，列表背景色是专辑封面的主色，列表标题色是专辑封面第二主色，按下列表后列表背景色和标题色互换。这还不本文的重点，大家注意到列表的图标了吗？进入不同的专辑，界面中的每个图标的颜色居然也是不一样的，也是根据专辑的封面主色而定的！真是惊艳！</p>
+<p>接下来我们就要思考了：</p>
+<ul>
+<li>获取专辑封面主色、第二主色这是如何实现的呢？</li>
+<li>如何动态的改变页面中图标的颜色？</li>
+</ul>
+<p>关于第一个问题，比较简单，我想大多数朋友都和我想的一样，就是获取到bitmap的宽高，然后两个for循环取每个像素点的色值存到集合中。最后集合中最多的就是主色，第二多的就是第二主色，第三、第四依次类推。</p>
+<p>主要是第二个问题，我想到了5种可能（头脑风暴，不管能不能实现，先列举出来）：</p>
+<ol>
+<li>使用paint（iOS中使用Quartz2D）来一个一个绘制，然后留出改变颜色的接口来动态改变。</li>
+<li>使用HTML5，我们在很多H5的网页中看到的图标也是能动态改变颜色的。</li>
+<li>使用svg。</li>
+<li>使用多套图方案。</li>
+<li>使用IconFont。</li>
+</ol>
+<p>关于第一种设想，非常麻烦，一个稍微复杂点的图标绘制出来可能都要花上半天的时间，说白了都是体力活。</p>
+<p>第二种可能，Radium页面中又许多流畅而且华丽的动画，应该不是H5开发的，并且我们现在考虑的是如何在本地应用中实现，so，out！</p>
+<p>第三种，要使用svg，首先得保证你的Android设备得高于于2.3，因为Android 2.3不支持SVG格式，并且目前2.3还是有10%左右份额的。</p>
+<p>第四种，我们是摸不清下一个专辑封面是张什么样的啊，太繁琐了而且大大增加了客户端的体积。</p>
+<p>看来只剩下第五种可能了…</p>
+<h3 id="什么是iconfont">什么是iconfont</h3><p>利用字体工具把我们平时 Web 上用的图形图标（icons）转换成 web fonts，就成了 icon fonts，它可以借助 CSS 的 @font-face 嵌入到网页里，用以显示 icons。因为字体是矢量化图形，它天生具有「分辨率无关」的特性，在任何分辨率和PPI下面，都可以做到完美缩放，不会像传统位图，如：png，jpeg，放大后有锯齿或模糊现象。</p>
+<h3 id="它有什么优点">它有什么优点</h3><ul>
+<li><strong>文件小</strong>：相比图片几十几百KB的容量，icon fonts 几乎是羽翼级轻量。</li>
+<li><strong>加载性能好</strong>：因为图标都被打包进一套字体内，http request 减少。这如同我们常用的 css sprites 技术。</li>
+<li><strong>支持CSS样式</strong>：和普通字体一样，你可以利用CSS来定义大小、颜色、阴影、hover状态、透明度、渐变等等…</li>
+<li><strong>兼容性好</strong>：web fonts 起源很早，别说主流浏览器，连IE6/7都能良好支持。除了一些老的移动端浏览器，如Android 2.1以下的初代浏览器，Opera mini 这类自限型浏览器。</li>
+</ul>
+<p><strong>缺点：只支持纯色icon。</strong></p>
+<p>为了能有个直观的印象，大家可以去<a href="http://css-tricks.com/examples/IconFont/" target="_blank" rel="external">IconFont测试</a>简单拖动滑块测试下改变每个属性（比如颜色、阴影等）的时候图标会变成什么样。</p>
+<h3 id="素材">素材</h3><p>在我们国内，比较好的矢量图标库有：<a href="http://www.iconfont.cn/" target="_blank" rel="external">阿里巴巴矢量图标库</a>。</p>
+<p>在国外有<a href="http://fortawesome.github.io/Font-Awesome/" target="_blank" rel="external">Font Awesome</a>。</p>
+<h3 id="实现">实现</h3><p>github上已经有大牛实现了，<a href="https://github.com/JoanZapata/android-iconify" target="_blank" rel="external">时光隧道</a>。</p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag">#Android</a>
+          
+            <a href="/tags/iOS/" rel="tag">#iOS</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/01/30/关于Vim一些不常用的36个小技巧/" rel="prev">关于Vim一些不常用的36个小技巧</a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/01/14/使用CardView实现卡片式Google-Plus布局/" rel="next">使用CardView实现卡片式Google Plus布局</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+ </div>
+
+        
+
+        
+          <div class="comments" id="comments">
+            
+          </div>
+        
+      </div>
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/bkdefault_avatar.jpg" alt="Dejavu" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">Dejavu</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">胡乱折腾</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">20</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">0</span>
+              <span class="site-state-item-name">分类</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="menu-item-icon icon-next-feed"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/lvning" target="_blank">github</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/lvning126" target="_blank">twitter</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.facebook.com/profile.php?id=100005003559569" target="_blank">facebook</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://plus.google.com/114589900799912329928/posts" target="_blank">google+</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.weibo.com/awesomest/profile?rightmod=1&wvr=6&mod=personinfo" target="_blank">weibo</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是iconfont"><span class="nav-number">2.</span> <span class="nav-text">什么是iconfont</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#它有什么优点"><span class="nav-number">3.</span> <span class="nav-text">它有什么优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#素材"><span class="nav-number">4.</span> <span class="nav-text">素材</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现"><span class="nav-number">5.</span> <span class="nav-text">实现</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner"> <div class="copyright" >
+  
+  &copy; &nbsp; 
+  <span itemprop="copyrightYear">2015</span>
+  <span class="with-love">
+    <i class="icon-next-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Dejavu</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT
+  </a>
+</div>
+
+
+ </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+    
+    
+
+  
+
+
+  
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.1"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.1"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5.1" id="motion.global"></script>
+
+
+
+  <script type="text/javascript" src="/js/nav-toggle.js"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.1" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 0.4 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    var $tocContent = $('.post-toc-content');
+    if (isDesktop() && CONFIG.sidebar === 'post') {
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+        displaySidebar();
+      }
+    }
+  });
+</script>
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+    });
+  </script>
+
+  
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#posts").find('img').lazyload({
+        placeholder: "/images/loading.gif",
+        effect: "fadeIn"
+      });
+    });
+  </script>
+</body>
+</html>

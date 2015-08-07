@@ -1,0 +1,757 @@
+<!doctype html>
+<html class="theme-next use-motion ">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.1"/>
+
+
+    <meta name="description" content="胡乱折腾" />
+
+
+
+  <meta name="keywords" content="Android," />
+
+
+
+  <link rel="alternate" href="/atom.xml" title="DEJAVU'S NOTES" type="application/atom+xml" />
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
+
+
+<meta name="description" content="如何构建你的项目Build your Project in Android Studio点击Build然后选择Make Project，最后点击右下方的Gradle Console查看打印信息。
+Gradle Tasks的使用点击右侧的Gradle，依次展开项目名–:app，可以查看所有的Gradle任务，比如双击assembleRelease，就可以执行此task。双击assemble，表示同时">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于Android Studio，你需要知道的9件事">
+<meta property="og:url" content="http://yiqivr.com/2014/12/18/关于Android-Studio，你需要知道的9件事/index.html">
+<meta property="og:site_name" content="DEJAVU'S NOTES">
+<meta property="og:description" content="如何构建你的项目Build your Project in Android Studio点击Build然后选择Make Project，最后点击右下方的Gradle Console查看打印信息。
+Gradle Tasks的使用点击右侧的Gradle，依次展开项目名–:app，可以查看所有的Gradle任务，比如双击assembleRelease，就可以执行此task。双击assemble，表示同时">
+<meta property="og:updated_time" content="2015-08-04T15:25:14.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="关于Android Studio，你需要知道的9件事">
+<meta name="twitter:description" content="如何构建你的项目Build your Project in Android Studio点击Build然后选择Make Project，最后点击右下方的Gradle Console查看打印信息。
+Gradle Tasks的使用点击右侧的Gradle，依次展开项目名–:app，可以查看所有的Gradle任务，比如双击assembleRelease，就可以执行此task。双击assemble，表示同时">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    sidebar: 'post'
+  };
+</script>
+
+  <title> 关于Android Studio，你需要知道的9件事 | DEJAVU'S NOTES </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand" rel="start">
+      <span class="logo">
+        <i class="icon-next-logo"></i>
+      </span>
+      <span class="site-title">DEJAVU'S NOTES</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon icon-next-home"></i> <br />
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            <i class="menu-item-icon icon-next-archives"></i> <br />
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            <i class="menu-item-icon icon-next-tags"></i> <br />
+            标签
+          </a>
+        </li>
+      
+
+      
+      
+        <li class="menu-item menu-item-search">
+          <a href="#" class="st-search-show-outputs">
+            <i class="menu-item-icon icon-next-search"></i> <br />
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'h2SpMJfbsZVPpKyipK2s','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content"> 
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              关于Android Studio，你需要知道的9件事
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2014-12-18T14:40:19+08:00" content="2014-12-18">
+            2014-12-18
+          </time>
+        </span>
+
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><h3 id="如何构建你的项目Build_your_Project_in_Android_Studio">如何构建你的项目Build your Project in Android Studio</h3><p>点击Build然后选择Make Project，最后点击右下方的Gradle Console查看打印信息。</p>
+<h3 id="Gradle_Tasks的使用">Gradle Tasks的使用</h3><p>点击右侧的Gradle，依次展开项目名–:app，可以查看所有的Gradle任务，比如双击assembleRelease，就可以执行此task。双击assemble，表示同时执行assembleDebug和assembleRelease，会在目录app/build/apk/生成对应的debug和release的APK。</p>
+<p>生成的APK命名规则：app-flavor-buildtype.apk; 比如： app-full-release.apk 和 app-demo-debug.apk.</p>
+<p>也可以在左下角点击控制台进行相应的任务命令：比如输入gradle tasks命令可以查看所有的task、输入gradle build命令表示同时执行assemble和check；同时命令还支持驼峰匹配：比如gradle aR等同于gradle assembleRelease。</p>
+<h3 id="运行配置">运行配置</h3><p>点击Run选择Edit Configuration，展开Android Application，可以新建一个配置或者编辑一个现有的配置：可以配置是否自动启动默认Activity，启动特定Activity，部署目标是否手动选择，比如可以自动部署到USB（真机）；模拟器网速控制：</p>
+<p>网速规则如下所示：</p>
+<p>None: no latency</p>
+<p>GPRS: GPRS (min 150, max 550 milliseconds)</p>
+<p>EDGE: EDGE/EGPRS (min 80, max 400 milliseconds)</p>
+<p>UMTS: UMTS/3G (min 35, max 200 milliseconds)</p>
+<p>同时可以配置模拟器启动时的额外命令行：</p>
+<p>比如启动适配屏幕：-scale 96dpi；还有logcat配置：比如是否每次启动时自动清空。</p>
+<h3 id="运行">运行</h3><p>点击Run然后选择Run (或者 Run debug)</p>
+<p>此操作将经历三个主要步骤：编译项目—创建一个默认运行配置（有则使用现有配置安装并运行）。</p>
+<p>如果是部署到真机需要注意：</p>
+<p>在build.gradle文件中配置 application 标签下：android:debuggable为true。（经过测试不配也行）</p>
+<p>在真机上启用USB debugging：</p>
+<p>如Android 3.2或更早：Settings &gt; Applications &gt; Development</p>
+<p>4.0或更新：Settings &gt; Developer options</p>
+<p>4.2或更新的版本默认是隐藏的，需要前往 Settings &gt; About phone点击Build number7下，返回上一个页面可见。</p>
+<h3 id="使用命令行">使用命令行</h3><p>构建一个debug版本，先执行：<code>$ chmod +x gradlew（第一次执行需授权命令）</code></p>
+<p>然后执行：<code>$ ./gradlew assembleDebug</code>，构建完成后apk的位置：app/build/outputs/apk/。</p>
+<p>如果为库文件则lib/build/outputs/libs/。构建一个release版本，执行命令：<code>$ ./gradlew assembleRelease</code>注意：此操作完成后还未进行签名，不能安装。</p>
+<p>接下来可用手动签名和zipalign，也可以利用build script配置自动签名和zipalign。</p>
+<p>这里只介绍下自动签名：</p>
+<p>在build.gradle中添加 storeFile, storePassword, keyAlias and keyPassword相关信息：</p>
+<p>比如：</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">..</span><br><span class="line">android &#123;</span><br><span class="line">...</span><br><span class="line">defaultConfig &#123; ... &#125;</span><br><span class="line">signingConfigs &#123;</span><br><span class="line">release &#123;</span><br><span class="line">storeFile file(<span class="string">"myreleasekey.keystore"</span>)</span><br><span class="line">storePassword <span class="string">"password"</span></span><br><span class="line">keyAlias <span class="string">"MyReleaseKey"</span></span><br><span class="line">keyPassword <span class="string">"password"</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">buildTypes &#123;</span><br><span class="line">release &#123;</span><br><span class="line">...</span><br><span class="line">signingConfig signingConfigs.release</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>也可以在Project Structure—&gt; Signing中进行配置，配置成功后会自动在build.gradle文件中生成相关信息。</p>
+<p>再次assembleRelease，成功之后就会生成一个your_module_name-release.apk，此apk是签名并且zipalign处理过的。</p>
+<p>最后使用命令：adb install path_to_your_bin.apk 就能安装到你的模拟器或者真机啦。</p>
+<h3 id="Gradle_Build配置">Gradle Build配置</h3><p>gradle build配置是使用DSL（特定领域语言）Groovy来配置构建逻辑的。我们主要是进行配置以下几个方面：</p>
+<p>Build variants（暂且叫构建变体吧）：使用此功能不必创建多个项目仅仅使用相同的module就能生成多个不同版本的APK，比如试用版和注册版。</p>
+<p>Dependencies（依赖关系）：可以使用本地库或者远程仓库来配置依赖关系。</p>
+<ul>
+<li>Manifest entries（清单）：可以生成多个比如不同版本号、项目名称等的APK。</li>
+<li>Signing（签名）：允许在构建APK的时候进行签名。</li>
+<li>ProGuard（混淆）：配置混淆。</li>
+<li>Testing（测试）：不用另外新建测试项目就能进行测试，非常的方便。</li>
+</ul>
+<h3 id="项目project与模块module两者关系：一个项目有1个或多个模块组成，单个模块由源代码和资源组成，可以独立进行build、Test、debug。">项目project与模块module两者关系：一个项目有1个或多个模块组成，单个模块由源代码和资源组成，可以独立进行build、Test、debug。</h3><p>关于模块，主要有以下几种：</p>
+<ul>
+<li>Android应用程序模块Android application modules：主要的模块，可能是mobile, TV, Wear, Glass。</li>
+<li>Android库模块Android library modules：包含一些可重用的源码和资源，构建程序会将之生成AAR (Android Archive)。</li>
+<li>应用引擎模块App Engine modules：包含APP集成引擎的代码和资源。</li>
+<li>jar包Java library modules：包含一些可重用代码，构建程序将之生成jar包。</li>
+</ul>
+<p>一个项目有一个项目级别的build.gradle文件，此文件配置所有模块通用的配置，而每个模块都有自己的build.gradle文件来配置特有的设置。</p>
+<p>关于这个项目级别的build.gradle：默认项目会定义Gradle的仓库与依赖关系，支持的仓库包括 JCenter, Maven Central, 或者 Ivy.下面的例子说明了使用JCenter仓库、0.14.4版本的Gradle：</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">buildscript</span> &#123;</span><br><span class="line"><span class="keyword">repositories</span> &#123;</span><br><span class="line">jcenter()</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">dependencies</span> &#123;</span><br><span class="line"><span class="keyword">classpath</span> <span class="string">'com.android.tools.build:gradle:0.14.4'</span></span><br><span class="line"><span class="comment">// <span class="doctag">NOTE:</span> Do not place your application dependencies here: they belong</span></span><br><span class="line"><span class="comment">// in the individual module build.gradle files</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">allprojects</span> &#123;</span><br><span class="line"><span class="keyword">repositories</span> &#123;</span><br><span class="line">jcenter()</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意：Android的SDK配置在 local.properties的sdk.dir属性中。<br>关于各个模块的build.gradle：主要会配置以下几个方面：</p>
+<ul>
+<li>android settings：比如编译版本和构建工具版本。</li>
+<li>defaultConfig and productFlavors：清单属性比如applicationId, minSdkVersion, targetSdkVersion等等。</li>
+<li>buildTypes：构建属性比如是否可以debug、是否混淆等。</li>
+<li>dependencies</li>
+</ul>
+<p>下面是一个例子：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">apply</span> plugin:<span class="string">'com.android.application'</span></span><br><span class="line">android &#123;</span><br><span class="line"><span class="title">compileSdkVersion</span> <span class="number">20</span></span><br><span class="line">buildToolsVersion <span class="string">"20.0.0"</span></span><br><span class="line">defaultConfig &#123;</span><br><span class="line"><span class="title">applicationId</span> <span class="string">"com.mycompany.myapplication"</span></span><br><span class="line">minSdkVersion <span class="number">13</span></span><br><span class="line">targetSdkVersion <span class="number">20</span></span><br><span class="line">versionCode <span class="number">1</span></span><br><span class="line">versionName <span class="string">"1.0"</span></span><br><span class="line">&#125;</span><br><span class="line">buildTypes &#123;</span><br><span class="line"><span class="title">release</span> &#123;</span><br><span class="line"><span class="title">minifyEnabled</span> <span class="built_in">false</span></span><br><span class="line">proguardFiles getDefaultProguardFile(<span class="string">'proguard-android.txt'</span>),<span class="string">'proguard-rules.pro'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">debug</span> &#123;</span><br><span class="line"><span class="title">debuggable</span> <span class="built_in">true</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">dependencies &#123;</span><br><span class="line"><span class="title">compile</span> fileTree(dir:<span class="string">'libs'</span>, include:[<span class="string">'*.jar'</span>])</span><br><span class="line">compile <span class="string">'com.android.support:appcompat-v7:20.0.0'</span></span><br><span class="line">compile project(path:<span class="string">':app2, configuration: '</span>android-endpoints<span class="string">')</span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="关于dependencies依赖关系支持三种：分别是模块依赖、本地二进制依赖、远程二进制依赖。">关于dependencies依赖关系支持三种：分别是模块依赖、本地二进制依赖、远程二进制依赖。</h3><p>远程依赖格式：group:name:version，比如：com.google.guava:guava:16.0.1。</p>
+<p>因此也可以写成compile group:’com.google.android’,name:’support-v4’,version:’r7’。</p>
+<p>MyProject/</p>
+<p>/ app</p>
+<p>/ libraries</p>
+<p>–/ lib1</p>
+<p>–/ lib2/</p>
+<p>则对应：</p>
+<p>:app</p>
+<p>:libraries:lib1</p>
+<p>:libraries:lib2</p>
+<p>然后在settings.gradle文件中则变成了：include ‘:app’, ‘:libraries:lib1’, ‘:libraries:lib2’。</p>
+<h3 id="构建变体（build_variant）">构建变体（build variant）</h3><p>总的来说：Build Type + Product Flavor = Build Variant</p>
+<p>每个生成的APK都是由一种构建变体决定的。一个构建变体由product flavors 和 build types决定；</p>
+<p>Product flavors代表一个项目版本，这是你随便定义的，比如区分付费的版本还是免费的版本、是那个CUP类型的版本等等。</p>
+<p>下面是一个例子：</p>
+<figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">...</span></span><br><span class="line">android &#123;</span><br><span class="line"><span class="attribute">...</span></span><br><span class="line">defaultConfig &#123; <span class="attribute">...</span> &#125;</span><br><span class="line">signingConfigs &#123; <span class="attribute">...</span> &#125;</span><br><span class="line">buildTypes &#123; <span class="attribute">...</span> &#125;</span><br><span class="line">productFlavors &#123;</span><br><span class="line">demo &#123;</span><br><span class="line">applicationId <span class="string">"com.buildsystemexample.app.demo"</span></span><br><span class="line">versionName <span class="string">"1.0-demo"</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="literal">full</span> &#123;</span><br><span class="line">applicationId <span class="string">"com.buildsystemexample.app.full"</span></span><br><span class="line">versionName <span class="string">"1.0-full"</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="attribute">...</span></span><br></pre></td></tr></table></figure>
+<p>这里的applicationId代表不同的包名，因为要生成不同的APP。</p>
+<p>Build types就是之前讲的，比如是debug还是release，一个build variant就是两者任意一种的组合。</p>
+<p>默认的Android Studio定义了两种build types，没有product flavors。所以只有两种build variants：debug和release。然后构建系统根据每种变体生成对应的APK。</p>
+<p>现在比如我们新增两种product flavors：demo和full，就应该有四种build variant：</p>
+<p>demoDebug、demoRelease、fullDebug、fullRelease。</p>
+<p>如果现在我们再加上一种product flavors：CPU/ABI类型，分别为x86、arm、mips，同理，那么我们就应该有12种build variant。</p>
+<p>Android Studio为了共用代码，变体使用文件夹规则来合并成一种变体：</p>
+<p>关于变体合并优先级从低到高的顺序为：libraries/dependencies -&gt; main src -&gt; productFlavor -&gt; buildType。</p>
+<p>接下来说说源码文件夹的定义规则：</p>
+<p>src/main/ - the main source directory (默认配置，所有变体通用)</p>
+<p>src/buildType/ - the source directory</p>
+<p>src/productFlavor/ - the source directory</p>
+<p>比如：</p>
+<p>src/main/ (default configuration)</p>
+<p>src/release/ (build type)</p>
+<p>src/demo/ (flavor - app type dimension)</p>
+<p>src/arm/ (flavor - ABI dimension)</p>
+<p>在每个源码文件夹里面我们可以使用相同的文件名，但是有个前提，就是这两个文件夹不会组合成一种变体。</p>
+<p>构建程序还会将所有的manifests合并成一个manifests，所以最后的manifest定义了不同的components or permissions，manifest合并也有优先级，优先级从低到高的顺序为：libraries/dependencies -&gt; main src -&gt; productFlavor -&gt; buildType。</p>
+<p>这儿有个命令规则：</p>
+<p>assemble&lt;Variant Name&gt;</p>
+<p>assemble&lt;Build Type Name&gt;</p>
+<p>assemble&lt;Product Flavor Name&gt;</p>
+<p>执行上述命令可生成对应的变体APK。</p>
+<p>比如有两个product flavors：flavor1和flavor2，执行：assembleFlavor1Debug生成对应的APK；</p>
+<p>给定Build Type执行assembleDebug：将生成Flavor1Debug和Flavor2Debug两个变体；</p>
+<p>给定flavor执行assembleFlavor1：生成Flavor1Debug和Flavor1Release两个变体。</p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag">#Android</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/12/31/使用Android系统的DownloadManager来实现自己的下载管理器/" rel="prev">使用Android系统的DownloadManager来实现自己的下载管理器</a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/12/15/Android官方下拉刷新SwipeRefreshLayout使用/" rel="next">Android官方下拉刷新SwipeRefreshLayout使用</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+ </div>
+
+        
+
+        
+          <div class="comments" id="comments">
+            
+          </div>
+        
+      </div>
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/bkdefault_avatar.jpg" alt="Dejavu" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">Dejavu</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">胡乱折腾</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">20</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">0</span>
+              <span class="site-state-item-name">分类</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="menu-item-icon icon-next-feed"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/lvning" target="_blank">github</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/lvning126" target="_blank">twitter</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.facebook.com/profile.php?id=100005003559569" target="_blank">facebook</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://plus.google.com/114589900799912329928/posts" target="_blank">google+</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.weibo.com/awesomest/profile?rightmod=1&wvr=6&mod=personinfo" target="_blank">weibo</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#如何构建你的项目Build_your_Project_in_Android_Studio"><span class="nav-number">1.</span> <span class="nav-text">如何构建你的项目Build your Project in Android Studio</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Gradle_Tasks的使用"><span class="nav-number">2.</span> <span class="nav-text">Gradle Tasks的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行配置"><span class="nav-number">3.</span> <span class="nav-text">运行配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行"><span class="nav-number">4.</span> <span class="nav-text">运行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用命令行"><span class="nav-number">5.</span> <span class="nav-text">使用命令行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Gradle_Build配置"><span class="nav-number">6.</span> <span class="nav-text">Gradle Build配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#项目project与模块module两者关系：一个项目有1个或多个模块组成，单个模块由源代码和资源组成，可以独立进行build、Test、debug。"><span class="nav-number">7.</span> <span class="nav-text">项目project与模块module两者关系：一个项目有1个或多个模块组成，单个模块由源代码和资源组成，可以独立进行build、Test、debug。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于dependencies依赖关系支持三种：分别是模块依赖、本地二进制依赖、远程二进制依赖。"><span class="nav-number">8.</span> <span class="nav-text">关于dependencies依赖关系支持三种：分别是模块依赖、本地二进制依赖、远程二进制依赖。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构建变体（build_variant）"><span class="nav-number">9.</span> <span class="nav-text">构建变体（build variant）</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner"> <div class="copyright" >
+  
+  &copy; &nbsp; 
+  <span itemprop="copyrightYear">2015</span>
+  <span class="with-love">
+    <i class="icon-next-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Dejavu</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT
+  </a>
+</div>
+
+
+ </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+    
+    
+
+  
+
+
+  
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.1"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.1"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5.1" id="motion.global"></script>
+
+
+
+  <script type="text/javascript" src="/js/nav-toggle.js"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.1" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 0.4 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    var $tocContent = $('.post-toc-content');
+    if (isDesktop() && CONFIG.sidebar === 'post') {
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+        displaySidebar();
+      }
+    }
+  });
+</script>
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+    });
+  </script>
+
+  
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#posts").find('img').lazyload({
+        placeholder: "/images/loading.gif",
+        effect: "fadeIn"
+      });
+    });
+  </script>
+</body>
+</html>

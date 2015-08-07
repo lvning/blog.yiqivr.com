@@ -1,0 +1,680 @@
+<!doctype html>
+<html class="theme-next use-motion ">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.1"/>
+
+
+    <meta name="description" content="胡乱折腾" />
+
+
+
+  <meta name="keywords" content="Android,iOS," />
+
+
+
+  <link rel="alternate" href="/atom.xml" title="DEJAVU'S NOTES" type="application/atom+xml" />
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
+
+
+<meta name="description" content="前言在开发中，我们免不了要与服务器进行网络数据交互，而这些数据采用了各种各样的方式，现如今比较流行的是JSON格式，而XML格式因为其解析速度慢、传输数据量较大等性能上的诟病被大家逐渐抛弃了。今天的主角是Protobuf（Protocol Buffers），也是完成此类任务的一个选择。
+什么是Protobufprotobuf是google提供的一个开源序列化框架，类似于XML，JSON这样的数据表">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在Android/iOS中使用Protobuf技术">
+<meta property="og:url" content="http://yiqivr.com/2015/03/25/在Android-iOS中使用Protobuf技术/index.html">
+<meta property="og:site_name" content="DEJAVU'S NOTES">
+<meta property="og:description" content="前言在开发中，我们免不了要与服务器进行网络数据交互，而这些数据采用了各种各样的方式，现如今比较流行的是JSON格式，而XML格式因为其解析速度慢、传输数据量较大等性能上的诟病被大家逐渐抛弃了。今天的主角是Protobuf（Protocol Buffers），也是完成此类任务的一个选择。
+什么是Protobufprotobuf是google提供的一个开源序列化框架，类似于XML，JSON这样的数据表">
+<meta property="og:updated_time" content="2015-08-04T15:15:50.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="在Android/iOS中使用Protobuf技术">
+<meta name="twitter:description" content="前言在开发中，我们免不了要与服务器进行网络数据交互，而这些数据采用了各种各样的方式，现如今比较流行的是JSON格式，而XML格式因为其解析速度慢、传输数据量较大等性能上的诟病被大家逐渐抛弃了。今天的主角是Protobuf（Protocol Buffers），也是完成此类任务的一个选择。
+什么是Protobufprotobuf是google提供的一个开源序列化框架，类似于XML，JSON这样的数据表">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    sidebar: 'post'
+  };
+</script>
+
+  <title> 在Android/iOS中使用Protobuf技术 | DEJAVU'S NOTES </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand" rel="start">
+      <span class="logo">
+        <i class="icon-next-logo"></i>
+      </span>
+      <span class="site-title">DEJAVU'S NOTES</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon icon-next-home"></i> <br />
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            <i class="menu-item-icon icon-next-archives"></i> <br />
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            <i class="menu-item-icon icon-next-tags"></i> <br />
+            标签
+          </a>
+        </li>
+      
+
+      
+      
+        <li class="menu-item menu-item-search">
+          <a href="#" class="st-search-show-outputs">
+            <i class="menu-item-icon icon-next-search"></i> <br />
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'h2SpMJfbsZVPpKyipK2s','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content"> 
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              在Android/iOS中使用Protobuf技术
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-03-25T08:45:42+08:00" content="2015-03-25">
+            2015-03-25
+          </time>
+        </span>
+
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><h3 id="前言">前言</h3><p>在开发中，我们免不了要与服务器进行网络数据交互，而这些数据采用了各种各样的方式，现如今比较流行的是JSON格式，而XML格式因为其解析速度慢、传输数据量较大等性能上的诟病被大家逐渐抛弃了。今天的主角是Protobuf（Protocol Buffers），也是完成此类任务的一个选择。</p>
+<h3 id="什么是Protobuf">什么是Protobuf</h3><p>protobuf是google提供的一个开源序列化框架，类似于XML，JSON这样的数据表示语言，其最大的特点是基于二进制，因此比传统的XML表示高效短小得多。虽然是二进制数据格式，但并没有因此变得复杂，开发人员通过按照一定的语法定义结构化的消息格式，然后送给命令行工具，工具将自动生成相关的类，可以支持php、java、c++、python等语言环境（由于开源力量的支持，已经有很多其他的支持语言，比如objc、C#等）。通过将这些类包含在项目中，可以很轻松的调用相关方法来完成业务消息的序列化与反序列化工作。</p>
+<p>protobuf在google中是一个比较核心的基础库，作为分布式运算涉及到大量的不同业务消息的传递，如何高效简洁的表示、操作这些业务消息在google这样的大规模应用中是至关重要的。而protobuf这样的库正好是在效率、数据大小、易用性之间取得了很好的平衡。更多详见：<a href="https://developers.google.com/protocol-buffers/docs/overview" target="_blank" rel="external">protocol-buffers</a></p>
+<h3 id="如何使用Protobuf">如何使用Protobuf</h3><p>首先需要在一个 .proto 文件中定义你需要做串行化的数据结构信息。每个ProtocolBuffer信息是一小段逻辑记录，包含一系列的键值对。这里有个非常简单的 .proto 文件定义了个人信息:</p>
+<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">message</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line"><span class="keyword">required</span> <span class="built_in">string</span> name = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">required</span> <span class="built_in">int32</span> id = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">optional</span> <span class="built_in">string</span> email = <span class="number">3</span>;</span><br><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">PhoneType</span> </span>&#123;</span><br><span class="line"><span class="constant">MOBILE</span> = <span class="number">0</span>;</span><br><span class="line"><span class="constant">HOME</span> = <span class="number">1</span>;</span><br><span class="line"><span class="constant">WORK</span> = <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">message</span> <span class="title">PhoneNumber</span> </span>&#123;</span><br><span class="line"><span class="keyword">required</span> <span class="built_in">string</span> number = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">optional</span> PhoneType type = <span class="number">2</span> [default = HOME];</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">repeated</span> PhoneNumber phone = <span class="number">4</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如你所见，消息格式很简单，每个消息类型拥有一个或多个特定的数字字段，每个字段拥有一个名字和一个值类型。值类型可以是数字(整数或浮点)、布尔型、字符串、原始字节或者其他ProtocolBuffer类型，还允许数据结构的分级。你可以指定可选字段，必选字段和重复字段。你可以在<a href="http://code.google.com/apis/protocolbuffers/docs/proto.html" target="_blank" rel="external">这里</a>找到更多关于如何编写 .proto 文件的信息。</p>
+<p>一旦你定义了自己的报文格式(message)，你就可以运行ProtocolBuffer编译器，将你的 .proto 文件编译成特定语言的类。这些类提供了简单的方法访问每个字段(像是 query() 和 set_query() )，像是访问类的方法一样将结构串行化或反串行化。例如你可以选择C++语言，运行编译如上的协议文件生成类叫做 Person 。随后你就可以在应用中使用这个类来串行化的读取报文信息。你可以这么写代码:</p>
+<figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Person</span> <span class="keyword">person</span>;</span><br><span class="line"><span class="keyword">person</span>.set_name(<span class="string">"John Doe"</span>);</span><br><span class="line"><span class="keyword">person</span>.set_id(1234);</span><br><span class="line"><span class="keyword">person</span>.set_email(<span class="string">"jdoe@example.com"</span>);</span><br><span class="line">fstream.output(<span class="string">"myfile"</span>,ios::out | ios::binary);</span><br><span class="line"><span class="keyword">person</span>.SerializeToOstream(&amp;output);</span><br></pre></td></tr></table></figure>
+<p>然后，你可以读取报文中的数据:</p>
+<figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">fstream input(<span class="string">"myfile"</span>,ios::in | ios:binary);</span><br><span class="line"><span class="keyword">Person</span> <span class="keyword">person</span>;</span><br><span class="line"><span class="keyword">person</span>.ParseFromIstream(&amp;input);</span><br><span class="line">cout &lt;&lt; <span class="string">"Name: "</span> &lt;&lt; <span class="keyword">person</span>.name() &lt;&lt; endl;</span><br><span class="line">cout &lt;&lt; <span class="string">"E-mail: "</span> &lt;&lt; <span class="keyword">person</span>.email() &lt;&lt; endl;</span><br></pre></td></tr></table></figure>
+<p>你可以在不影响向后兼容的情况下随意给数据结构增加字段，旧有的数据会忽略新的字段。所以如果使用ProtocolBuffer作为通信协议，你可以无须担心破坏现有代码的情况下扩展协议。</p>
+<h3 id="Protobuf有什么缺陷">Protobuf有什么缺陷</h3><ul>
+<li><p>二进制格式导致可读性差：为了提高性能，protobuf采用了二进制格式进行编码。这直接导致了可读性差的问题（严格地说，是没有可读性）。虽然protobuf提供了TextFormat这个工具类，但终究无法彻底解决此问题。</p>
+</li>
+<li><p>缺乏自描述：一般来说，XML是自描述的，而protobuf格式则不是。给你一段二进制格式的协议内容，如果不配合相应的proto文件，那简直就像天书一般。</p>
+</li>
+<li><p>其他的关于Protobuf:</p>
+</li>
+</ul>
+<p>1、 从某种意义上讲，可以把proto文件看成是描述通讯协议的规格说明书（或者叫接口规范）。我们能从中看到AIDL的影子，它们的思想是相通的。</p>
+<p>2、关于“向后兼容”和“向前兼容”：</p>
+<p>为了叙述方便，我们把增加了“状态”属性的协议成为“新版本”；之前的叫“老版本”。</p>
+<p>所谓的“向后兼容”（backward compatible），就是说，当模块B升级了之后，它能够正确识别模块A发出的老版本的协议。由于老版本没有“状态”这个属性，在扩充协议时，可以考虑把“状态”属性设置成非必填的，或者给“状态”属性设置一个缺省值。</p>
+<p>所谓的“向前兼容”（forward compatible），就是说，当模块A升级了之后，模块B能够正常识别模块A发出的新版本的协议。这时候，新增加的“状态”属性会被忽略。</p>
+<p>“向后兼容”和“向前兼容”有什么用处呢？举个例子：当你维护一个很庞大的分布式系统时，由于你无法同时升级所有模块，为了保证在升级过程中，整个系统能够尽可能不受影响，就需要尽量保证通讯协议的“向后兼容”或“向前兼容”。</p>
+<p>3、跟Protobuf类似的还有thrift，thrift提供了全套RPC解决方案，包括序列化机制、传输层、并发处理框架等，支持的语言更多，功能更丰富，但是学习成本较高。</p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag">#Android</a>
+          
+            <a href="/tags/iOS/" rel="tag">#iOS</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/03/03/在Android中实现阴影效果/" rel="next">在Android中实现阴影效果</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+ </div>
+
+        
+
+        
+          <div class="comments" id="comments">
+            
+          </div>
+        
+      </div>
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/bkdefault_avatar.jpg" alt="Dejavu" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">Dejavu</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">胡乱折腾</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">20</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">0</span>
+              <span class="site-state-item-name">分类</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="menu-item-icon icon-next-feed"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/lvning" target="_blank">github</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/lvning126" target="_blank">twitter</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.facebook.com/profile.php?id=100005003559569" target="_blank">facebook</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://plus.google.com/114589900799912329928/posts" target="_blank">google+</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.weibo.com/awesomest/profile?rightmod=1&wvr=6&mod=personinfo" target="_blank">weibo</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是Protobuf"><span class="nav-number">2.</span> <span class="nav-text">什么是Protobuf</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何使用Protobuf"><span class="nav-number">3.</span> <span class="nav-text">如何使用Protobuf</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Protobuf有什么缺陷"><span class="nav-number">4.</span> <span class="nav-text">Protobuf有什么缺陷</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner"> <div class="copyright" >
+  
+  &copy; &nbsp; 
+  <span itemprop="copyrightYear">2015</span>
+  <span class="with-love">
+    <i class="icon-next-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Dejavu</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT
+  </a>
+</div>
+
+
+ </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+    
+    
+
+  
+
+
+  
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.1"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.1"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5.1" id="motion.global"></script>
+
+
+
+  <script type="text/javascript" src="/js/nav-toggle.js"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.1" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 0.4 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    var $tocContent = $('.post-toc-content');
+    if (isDesktop() && CONFIG.sidebar === 'post') {
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+        displaySidebar();
+      }
+    }
+  });
+</script>
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+    });
+  </script>
+
+  
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#posts").find('img').lazyload({
+        placeholder: "/images/loading.gif",
+        effect: "fadeIn"
+      });
+    });
+  </script>
+</body>
+</html>
